@@ -1,8 +1,13 @@
 // Generated from E:/Projects/CompilerProject-Phase2/grammar\MiniJava.g4 by ANTLR 4.8
 package com.alirezaft.Minijava.gen;
+import com.alirezaft.Minijava.ScopeNodeGraph;
+import com.alirezaft.Minijava.SymbolTable;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+
+import java.util.Hashtable;
 
 /**
  * This class provides an empty implementation of {@link MiniJavaListener},
@@ -15,7 +20,54 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(MiniJavaParser.ProgramContext ctx) { }
+
+	@Override public void enterProgram(MiniJavaParser.ProgramContext ctx) {
+		SymbolTable s = new SymbolTable();
+		MiniJavaParser.ClassDeclarationContext Class;
+		Hashtable<String, String> attrs;
+
+		for(int i = 0; ctx.classDeclaration(i) != null; i++){
+			Class = ctx.classDeclaration(i);
+			attrs = new Hashtable<>();
+			attrs.put("Value", "Class");
+			attrs.put("name", Class.Identifier(0).getText());
+			if(Class.getText().contains("implements") || Class.getText().contains("extends")){
+				if(Class.getText().contains("extends")){
+					attrs.put("extends", Class.Identifier(1).getText());
+				}
+				if(ctx.getText().contains("implements")){
+					StringBuilder sb = new StringBuilder();
+					for(int j = Class.getText().contains("extends")? 5 : 3; j < Class.getChildCount(); j++){
+
+						if(Class.getChild(j).getPayload() instanceof Token && !((Token)Class.getChild(j).getPayload()).getText().equals("{")
+								&& j > (Class.getText().contains("extends")? 5 : 3)){
+							sb.append(Class.getChild(i) + ",");
+						}
+					}
+					sb.setLength(sb.length() - 1);
+					attrs.put("implements", sb.toString());
+				}
+			}
+			s.insert("class_" + Class.Identifier(0), attrs);
+
+
+		}
+
+		MiniJavaParser.InterfaceDeclarationContext Interface;
+
+		for(int i = 0; ctx.interfaceDeclaration(i) != null; i++){
+			Interface = ctx.interfaceDeclaration(i);
+			attrs = new Hashtable<>();
+			attrs.put("Value", "Interface");
+			attrs.put("name", Interface.Identifier().getText());
+			s.insert("interface_" + Interface.Identifier(), attrs);
+		}
+		ScopeNodeGraph Root = new ScopeNodeGraph("program", s, ctx.getStart().getLine());
+		ScopeNodeGraph.setRoot(Root);
+		ScopeNodeGraph.printSymbolTables();
+
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -51,7 +103,41 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassDeclaration(MiniJavaParser.ClassDeclarationContext ctx) { }
+	@Override public void enterClassDeclaration(MiniJavaParser.ClassDeclarationContext ctx) {
+		SymbolTable sb = new SymbolTable();
+		Hashtable<String, String> attrs;
+
+        MiniJavaParser.FieldDeclarationContext Field;
+        for(int i = 0; ctx.fieldDeclaration(i) != null; i++){
+            Field = ctx.fieldDeclaration(i);
+            attrs = new Hashtable<>();
+            attrs.put("Value", "Field");
+            attrs.put("name", Field.Identifier().getText());
+            attrs.put("accessModifier", (Field.accessModifier() == null || Field.accessModifier().getText().equals("private")) ?
+                    "ACCESS_MODIFIER_PRIVATE" : "ACCESS_MODIFIER_PRIVATE");
+            attrs.put("isDefined", Field.EQ() == null ? "false" : "true");
+            MiniJavaParser.TypeContext type = Field.type();
+            if(type.javaType() != null){
+                if(type.LSB() != null){
+                    attrs.put("Jtype", type.javaType().getText() + "[]");
+                }else{
+                    attrs.put("Jtype", type.javaType().getText());
+                }
+            }else{
+                if(type.LSB() == null){
+                    attrs.put("Ctype", type.Identifier().getText());
+                }else{
+                    attrs.put("Ctype", type.Identifier().getText() + "[]");
+                }
+            }
+            sb.insert("var_" + Field.Identifier().getText(), attrs);
+        }
+
+		ScopeNodeGraph node = new ScopeNodeGraph(ctx.Identifier(0).getText(), sb, ctx.getStart().getLine());
+        ScopeNodeGraph.getRoot().addChild(node);
+        ScopeNodeGraph.printSymbolTables();
+		
+	}
 	/**
 	 * {@inheritDoc}
 	 *

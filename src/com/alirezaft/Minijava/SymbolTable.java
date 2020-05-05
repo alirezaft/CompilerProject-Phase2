@@ -1,15 +1,15 @@
 package com.alirezaft.Minijava;
 
 
+import java.util.Collection;
 import java.util.Hashtable;
+import java.util.Set;
 
 public class SymbolTable {
     private Hashtable<String, Hashtable<String, String>> Table;
-    private int StartLineNumber;
 
-    public SymbolTable(int lineNumber){
+    public SymbolTable(){
         Table = new Hashtable<>();
-        StartLineNumber = lineNumber;
     }
 
     public void insert(String Identifier, Hashtable<String, String> attributes){
@@ -20,8 +20,64 @@ public class SymbolTable {
         return Table.get(Identifier);
     }
 
-    public int getStartLineNumber(){
-        return StartLineNumber;
+    public String printItems(){
+        StringBuilder sb = new StringBuilder();
+        Table.forEach((k, v) -> {
+            sb.append("Key = " + k + " | ");
+            if(k.startsWith("class_")){
+                printClass(k, v, sb);
+            }else if(k.startsWith("interface_")){
+                printInterface(k, v, sb);
+            }else if(k.startsWith("var_")){
+                if(v.get("Value").equals("Field")){
+                    printField(k, v, sb);
+                }
+            }
+        });
+        return sb.toString();
     }
 
+    private void printClass(String k, Hashtable<String, String> v, StringBuilder sb){
+        sb.append("Value = " + v.get("Value") + ": ");
+        sb.append("(name: " + v.get("name") + ") ");
+        if(!v.contains("extends")){
+            sb.append("(extends : Object");
+        }else{
+            sb.append("(extends : " + v.get("extends"));
+        }
+        if(v.contains("implements")){
+            sb.append(" | implements: " + v.get("implements"));
+        }
+        sb.append(")\n");
+    }
+    private void printInterface(String k, Hashtable<String, String> v, StringBuilder sb){
+        sb.append("Value = " + v.get("Value") + ": ");
+        sb.append("(name: " + v.get("name") + ")");
+        sb.append("\n");
+    }
+
+    private void printField(String k, Hashtable<String, String> v, StringBuilder sb){
+        sb.append("Value = " + v.get("Value") + ": ");
+        sb.append("(name : " + v.get("name") + ") ");
+        sb.append("(type: ");
+        String type;
+        if(v.containsKey("Jtype")){
+            type = v.get("Jtype");
+            if(type.contains("[]")){
+                sb.append("array of ");
+            }
+            sb.append(type.split("\\[")[0]);
+            sb.append(") ");
+            sb.append("(accessModifier: " + v.get("accessModifier") + ")\n");
+        }else{
+            type = v.get("Ctype");
+            if(type.contains("[]")){
+                sb.append("array of ");
+            }
+            sb.append("[");
+            sb.append("classType = " + type.split("\\[")[0] + ", ");
+            sb.append("isDefined = " + v.get("isDefined") + "]) ");
+            sb.append("(accessModifier: " + v.get("accessModifier") + ")\n");
+        }
+    }
 }
