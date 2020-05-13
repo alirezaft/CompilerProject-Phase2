@@ -15,23 +15,25 @@ public class ClassToken extends Token {
     public String toString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Key = " + Identifier + " | ");
+//        sb.append("Key = " + Identifier + " | ");
         sb.append("Value = " + Value + ": ");
         sb.append("(name : " + Name + ") ");
         if(Parent != null) {
-            sb.append("(extend : " + Parent);
+            sb.append("(extends : " + Parent);
         }
         if(Interfaces != null){
             if(Parent == null){
-                sb.append("|");
+                sb.append(" | ");
             }else{
-                sb.append("(");
+                sb.append(" | ");
             }
-            sb.append("implements");
+            sb.append("implements : ");
             for (String inter : Interfaces){
                 sb.append(inter + ", ");
             }
             sb.setLength(sb.length() - 1);
+            sb.append(")\n");
+        }else{
             sb.append(")\n");
         }
         return sb.toString();

@@ -1,9 +1,13 @@
 // Generated from E:/Projects/CompilerProject-Phase2/grammar\MiniJava.g4 by ANTLR 4.8
 package com.alirezaft.Minijava.gen;
 
+import com.alirezaft.Minijava.ClassToken;
+import com.alirezaft.Minijava.SymbolTable;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+
+import java.util.ArrayList;
 
 /**
  * This class provides an empty implementation of {@link MiniJavaListener},
@@ -16,7 +20,27 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(MiniJavaParser.ProgramContext ctx) { }
+	@Override public void enterProgram(MiniJavaParser.ProgramContext ctx) {
+		SymbolTable st = new SymbolTable();
+
+		MiniJavaParser.ClassDeclarationContext Class;
+		for(int i = 0; ctx.classDeclaration(i) != null; i++){
+			Class = ctx.classDeclaration(i);
+			ArrayList<String> Interfaces = new ArrayList<>();
+
+			if(Class.getText().contains("implements")){
+				for(int j = Class.parentName == null ? 1 : 2; Class.Identifier(j) != null; j++){
+					System.out.println(Class.Identifier(i).getText());
+					Interfaces.add(Class.Identifier(i).getText());
+				}
+			}
+			String[] s = new String[1];
+			st.insert("class_" + Class.className.getText(), new ClassToken(Class.className.getText(), Class.parentName == null ? "Object" : Class.parentName.getText(),
+					Interfaces.size() != 0 ? Interfaces.toArray(s) : null));
+		}
+		System.out.println("DONE");
+		System.out.println(st.printItems());
+	}
 	/**
 	 * {@inheritDoc}
 	 *
