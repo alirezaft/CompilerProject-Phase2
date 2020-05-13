@@ -1,7 +1,12 @@
 package com.alirezaft.Minijava;
 
 public class Token {
-    private String Identifier;
-    private String Type;
+    protected String Identifier;
+    protected String Value;
+
+    public Token(String value, String identifier){
+        Identifier = identifier;
+        Value = value;
+    }
 
 }

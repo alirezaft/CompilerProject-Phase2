@@ -19,16 +19,6 @@ public interface MiniJavaListener extends ParseTreeListener {
 	 */
 	void exitProgram(MiniJavaParser.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MiniJavaParser#importClass}.
-	 * @param ctx the parse tree
-	 */
-	void enterImportClass(MiniJavaParser.ImportClassContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MiniJavaParser#importClass}.
-	 * @param ctx the parse tree
-	 */
-	void exitImportClass(MiniJavaParser.ImportClassContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link MiniJavaParser#mainClass}.
 	 * @param ctx the parse tree
 	 */
@@ -38,6 +28,16 @@ public interface MiniJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMainClass(MiniJavaParser.MainClassContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MiniJavaParser#mainMethod}.
+	 * @param ctx the parse tree
+	 */
+	void enterMainMethod(MiniJavaParser.MainMethodContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MiniJavaParser#mainMethod}.
+	 * @param ctx the parse tree
+	 */
+	void exitMainMethod(MiniJavaParser.MainMethodContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MiniJavaParser#classDeclaration}.
 	 * @param ctx the parse tree
@@ -428,6 +428,18 @@ public interface MiniJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIntLitExpression(MiniJavaParser.IntLitExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code stringLitExpression}
+	 * labeled alternative in {@link MiniJavaParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringLitExpression(MiniJavaParser.StringLitExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stringLitExpression}
+	 * labeled alternative in {@link MiniJavaParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringLitExpression(MiniJavaParser.StringLitExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code nullLitExpression}
 	 * labeled alternative in {@link MiniJavaParser#expression}.

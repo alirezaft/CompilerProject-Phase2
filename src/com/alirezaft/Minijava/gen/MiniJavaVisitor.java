@@ -18,17 +18,17 @@ public interface MiniJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(MiniJavaParser.ProgramContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MiniJavaParser#importClass}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitImportClass(MiniJavaParser.ImportClassContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link MiniJavaParser#mainClass}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitMainClass(MiniJavaParser.MainClassContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MiniJavaParser#mainMethod}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMainMethod(MiniJavaParser.MainMethodContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MiniJavaParser#classDeclaration}.
 	 * @param ctx the parse tree
@@ -259,6 +259,13 @@ public interface MiniJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIntLitExpression(MiniJavaParser.IntLitExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stringLitExpression}
+	 * labeled alternative in {@link MiniJavaParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringLitExpression(MiniJavaParser.StringLitExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code nullLitExpression}
 	 * labeled alternative in {@link MiniJavaParser#expression}.

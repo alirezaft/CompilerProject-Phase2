@@ -25,7 +25,7 @@ class Base extends Rest implements Face,MyFace{
 	public int get() {
 		return data;
 	}
-	private int test(){
+	private int test(Track i){
 
 	while(1)
 	    int x;
