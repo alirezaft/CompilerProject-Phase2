@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * This class provides an empty implementation of {@link MiniJavaListener},
@@ -14,6 +15,7 @@ import java.util.ArrayList;
  * of the available methods.
  */
 public class MiniJavaBaseListener implements MiniJavaListener {
+	Stack<ScopeNodeGraph> CurrParents = new Stack<>();
 	/**
 	 * {@inheritDoc}
 	 *
@@ -49,6 +51,7 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 		System.out.println("DONE");
 		ScopeNodeGraph node = new ScopeNodeGraph("program", st, ctx.getStart().getLine());
 		ScopeNodeGraph.setRoot(node);
+		CurrParents.push(node);
 		ScopeNodeGraph.printSymbolTables();
 
 	}
@@ -57,7 +60,10 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProgram(MiniJavaParser.ProgramContext ctx) { }
+	@Override public void exitProgram(MiniJavaParser.ProgramContext ctx) {
+		ScopeNodeGraph.printSymbolTables();
+		CurrParents.pop();
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -131,22 +137,73 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 						Method.returnType().type().javaType() == null));
 			}
 		}
-
+// TODO: 5/14/2020 Find what isDefined does
 		ScopeNodeGraph node = new ScopeNodeGraph(ctx.Identifier(0).getText(), st, ctx.getStart().getLine());
-		System.out.println(node.toString());
+		CurrParents.peek().getChildren().add(node);
+		CurrParents.push(node);
+//		System.out.println(node.toString());
 	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClassDeclaration(MiniJavaParser.ClassDeclarationContext ctx) { }
+	@Override public void exitClassDeclaration(MiniJavaParser.ClassDeclarationContext ctx) {
+		CurrParents.pop();
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInterfaceDeclaration(MiniJavaParser.InterfaceDeclarationContext ctx) { }
+	@Override public void enterInterfaceDeclaration(MiniJavaParser.InterfaceDeclarationContext ctx) {
+		SymbolTable st = new SymbolTable();
+
+		MiniJavaParser.FieldDeclarationContext Field;
+		for(int i = 0; ctx.fieldDeclaration(i) != null; i++){
+			Field = ctx.fieldDeclaration(i);
+			boolean Array, Class;
+			Array = Field.type().LSB() != null;
+			Class = Field.type().javaType() == null;
+			st.insert("var_" + Field.Identifier(), new FieldToken(Field.fieldName.getText(), Field.fieldName.getText(),
+					Field.accessModifier() == null || Field.accessModifier().getText().equals("private") ?
+					"private" : "public", Class, Field.type().getText(), Field.EQ() != null , Array));
+		}
+
+		MiniJavaParser.InterfaceMethodDeclarationContext intmethod;
+		for(int i = 0; ctx.interfaceMethodDeclaration(i) != null; i++){
+			intmethod = ctx.interfaceMethodDeclaration(i);
+			ArrayList<ParameterDeclaration> params = new ArrayList<>();
+			MiniJavaParser.ParameterListContext plist = intmethod.parameterList();
+			if(plist != null){
+				for(int j = 0; plist.parameter(j) != null; j++){
+					MiniJavaParser.ParameterContext pa = plist.parameter(j);
+					ParameterDeclaration p = new ParameterDeclaration(pa.type().getText(), pa.Identifier().getText(), pa.type().LSB() != null,
+							pa.type().javaType() == null, false, j + 1);
+					params.add(p);
+				}
+			}
+			if(intmethod.returnType().getText().equals("void")){
+				st.insert("method_" + intmethod.Identifier().getText(), new MethodToken(intmethod.Identifier().getText(),
+						intmethod.Identifier().getText(), intmethod.accessModifier() == null || intmethod.accessModifier().getText().equals("private") ?
+						"private" : "public", "void",
+						params,
+						false,
+						false));
+			}else{
+				st.insert("method_" + intmethod.Identifier().getText(), new MethodToken(intmethod.Identifier().getText(),
+						intmethod.Identifier().getText(), intmethod.accessModifier() == null || intmethod.accessModifier().getText().equals("private") ?
+						"private" : "public", intmethod.returnType().getText(),
+						params,
+						intmethod.returnType().type().LSB() != null,
+						intmethod.returnType().type().javaType() == null));
+			}
+		}
+
+
+		ScopeNodeGraph node = new ScopeNodeGraph(ctx.interfaceName.getText(), st, ctx.getStart().getLine());
+		CurrParents.peek().getChildren().add(node);
+	}
 	/**
 	 * {@inheritDoc}
 	 *
