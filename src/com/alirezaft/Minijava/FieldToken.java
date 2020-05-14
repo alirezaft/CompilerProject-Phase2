@@ -12,7 +12,11 @@ public class FieldToken extends Token {
                         boolean Array){
         super("Field", Identifier);
         Name = name;
-        AccessModifier = accessModifier;
+        if(accessModifier == "private"){
+            AccessModifier = "ACCESS_MODIFIER_PRIVATE";
+        }else{
+            AccessModifier = "ACCESS_MODIFIER_PUBLIC";
+        }
         isClass = Class;
         Type = type;
         isDefined = Defined;
@@ -37,7 +41,7 @@ public class FieldToken extends Token {
             sb.append(Type);
         }
         sb.append(") ");
-        sb.append("(accessModifier: " + AccessModifier);
+        sb.append("(accessModifier: " + AccessModifier + ")\n");
 
         return sb.toString();
     }

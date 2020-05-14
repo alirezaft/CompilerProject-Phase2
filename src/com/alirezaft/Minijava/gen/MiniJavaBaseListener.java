@@ -1,8 +1,7 @@
 // Generated from E:/Projects/CompilerProject-Phase2/grammar\MiniJava.g4 by ANTLR 4.8
 package com.alirezaft.Minijava.gen;
 
-import com.alirezaft.Minijava.ClassToken;
-import com.alirezaft.Minijava.SymbolTable;
+import com.alirezaft.Minijava.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -35,11 +34,23 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 				}
 			}
 			String[] s = new String[1];
-			st.insert("class_" + Class.className.getText(), new ClassToken(Class.className.getText(), Class.parentName == null ? "Object" : Class.parentName.getText(),
+			st.insert("class_" + Class.className.getText(), new ClassToken(Class.className.getText(),
+					Class.parentName == null ? "Object" : Class.parentName.getText(),
 					Interfaces.size() != 0 ? Interfaces.toArray(s) : null));
 		}
+
+		MiniJavaParser.InterfaceDeclarationContext Interface;
+		for(int i = 0; ctx.interfaceDeclaration(i) != null; i++){
+			Interface = ctx.interfaceDeclaration(i);
+			st.insert("interface_" + Interface.Identifier().getText(),
+					new InterfaceToken("interface_" + Interface.Identifier().getText(), Interface.Identifier().getText()));
+		}
+
 		System.out.println("DONE");
-		System.out.println(st.printItems());
+		ScopeNodeGraph node = new ScopeNodeGraph("program", st, ctx.getStart().getLine());
+		ScopeNodeGraph.setRoot(node);
+		ScopeNodeGraph.printSymbolTables();
+
 	}
 	/**
 	 * {@inheritDoc}
@@ -76,7 +87,54 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassDeclaration(MiniJavaParser.ClassDeclarationContext ctx) { }
+	@Override public void enterClassDeclaration(MiniJavaParser.ClassDeclarationContext ctx) {
+		SymbolTable st = new SymbolTable();
+
+		MiniJavaParser.FieldDeclarationContext Field;
+		for(int i = 0; ctx.fieldDeclaration(i) != null; i++){
+			Field = ctx.fieldDeclaration(i);
+			boolean Array, Class;
+			Array = Field.type().LSB() != null;
+			Class = Field.type().javaType() == null;
+			st.insert("var_" + Field.Identifier(), new FieldToken(Field.fieldName.getText(), Field.fieldName.getText(),
+					Field.accessModifier() == null || Field.accessModifier().getText().equals("private") ?
+					"private" : "public", Class, Field.type().getText(), Field.EQ() != null , Array));
+
+		}
+
+		MiniJavaParser.MethodDeclarationContext Method;
+		for(int i = 0; ctx.methodDeclaration(i) != null; i++){
+			Method = ctx.methodDeclaration(i);
+			ArrayList<ParameterDeclaration> params = new ArrayList<>();
+			MiniJavaParser.ParameterListContext plist = Method.parameterList();
+			if(plist != null){
+				for(int j = 0; plist.parameter(j) != null; j++){
+					MiniJavaParser.ParameterContext pa = plist.parameter(j);
+					ParameterDeclaration p = new ParameterDeclaration(pa.type().getText(), pa.Identifier().getText(), pa.type().LSB() != null,
+							pa.type().javaType() == null, false, j + 1);
+					params.add(p);
+				}
+			}
+			if(Method.returnType().getText().equals("void")){
+				st.insert("method_" + Method.Identifier().getText(), new MethodToken(Method.Identifier().getText(),
+						Method.Identifier().getText(), Method.accessModifier() == null || Method.accessModifier().getText().equals("private") ?
+						"private" : "public", "void",
+						params,
+						false,
+						false));
+			}else{
+				st.insert("method_" + Method.Identifier().getText(), new MethodToken(Method.Identifier().getText(),
+						Method.Identifier().getText(), Method.accessModifier() == null || Method.accessModifier().getText().equals("private") ?
+						"private" : "public", Method.returnType().getText(),
+						params,
+						Method.returnType().type().LSB() != null,
+						Method.returnType().type().javaType() == null));
+			}
+		}
+
+		ScopeNodeGraph node = new ScopeNodeGraph(ctx.Identifier(0).getText(), st, ctx.getStart().getLine());
+		System.out.println(node.toString());
+	}
 	/**
 	 * {@inheritDoc}
 	 *

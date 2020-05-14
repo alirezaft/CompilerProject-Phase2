@@ -30,8 +30,8 @@ public class ScopeNodeGraph {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("--------- " + ScopeIdentifier + " : " + LineNumber + "---------\n");
-        sb.append(Table.printItems() + "\n");
+        sb.append("--------- " + ScopeIdentifier + " : " + LineNumber + " ---------\n");
+        sb.append(Table.printItems());
         sb.append("-----------------------------------\n");
 
         return sb.toString();

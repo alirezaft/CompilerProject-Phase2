@@ -8,6 +8,7 @@ import java.util.Set;
 public class SymbolTable {
     private Hashtable<String, Token> Table;
 
+
     public SymbolTable(){
         Table = new Hashtable<>();
     }
