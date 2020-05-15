@@ -9,6 +9,7 @@ public class ClassToken extends Token {
         super("Class", Identifier);
         Parent = parent;
         Interfaces = interfaces;
+        Name = Identifier;
     }
 
 @Override
@@ -33,8 +34,10 @@ public class ClassToken extends Token {
             }
             sb.setLength(sb.length() - 1);
             sb.append(")\n");
-        }else{
+        }else if(Parent != null){
             sb.append(")\n");
+        }else{
+            sb.append("\n");
         }
         return sb.toString();
     }

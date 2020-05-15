@@ -31,7 +31,6 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 
 			if(Class.getText().contains("implements")){
 				for(int j = Class.parentName == null ? 1 : 2; Class.Identifier(j) != null; j++){
-					System.out.println(Class.Identifier(i).getText());
 					Interfaces.add(Class.Identifier(i).getText());
 				}
 			}
@@ -48,12 +47,12 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 					new InterfaceToken("interface_" + Interface.Identifier().getText(), Interface.Identifier().getText()));
 		}
 
-		System.out.println("DONE");
+		MiniJavaParser.MainClassContext Main = ctx.mainClass();
+		st.insert("mainClass_" + Main.className.getText(), new MainClassToken(Main.className.getText()));
+
 		ScopeNodeGraph node = new ScopeNodeGraph("program", st, ctx.getStart().getLine());
 		ScopeNodeGraph.setRoot(node);
 		CurrParents.push(node);
-		ScopeNodeGraph.printSymbolTables();
-
 	}
 	/**
 	 * {@inheritDoc}
@@ -69,7 +68,9 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMainClass(MiniJavaParser.MainClassContext ctx) { }
+	@Override public void enterMainClass(MiniJavaParser.MainClassContext ctx) {
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -137,11 +138,10 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 						Method.returnType().type().javaType() == null));
 			}
 		}
-// TODO: 5/14/2020 Find what isDefined does
+// TODO: 5/14/2020 Find out what isDefined does
 		ScopeNodeGraph node = new ScopeNodeGraph(ctx.Identifier(0).getText(), st, ctx.getStart().getLine());
 		CurrParents.peek().getChildren().add(node);
 		CurrParents.push(node);
-//		System.out.println(node.toString());
 	}
 	/**
 	 * {@inheritDoc}
@@ -251,13 +251,47 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMethodDeclaration(MiniJavaParser.MethodDeclarationContext ctx) { }
+	@Override public void enterMethodDeclaration(MiniJavaParser.MethodDeclarationContext ctx) {
+		SymbolTable st = new SymbolTable();
+
+		MiniJavaParser.StatementContext Statement;
+
+		for(int i = 0; ctx.methodBody().statement(i) != null; i++){
+			Statement = ctx.methodBody().statement(i);
+			if(Statement instanceof MiniJavaParser.LocalVarDeclarationContext){
+				MiniJavaParser.LocalVarDeclarationContext l = (MiniJavaParser.LocalVarDeclarationContext) Statement;
+				LocalVarToken var = new LocalVarToken(l.localDeclaration().verName.getText(), l.localDeclaration().type().getText(),
+						l.localDeclaration().type().LSB() != null, l.localDeclaration().type().javaType() == null,
+						true);
+				st.insert("var_" + l.localDeclaration().verName.getText(), var);
+			}
+		}
+
+		ArrayList<ParameterToken> params = new ArrayList<>();
+		MiniJavaParser.ParameterListContext plist = ctx.parameterList();
+		if(plist != null){
+			for(int j = 0; plist.parameter(j) != null; j++){
+				MiniJavaParser.ParameterContext pa = plist.parameter(j);
+				ParameterToken p = new ParameterToken(pa.type().getText(), pa.Identifier().getText(), pa.type().LSB() != null,
+						pa.type().javaType() == null, false, j + 1);
+				params.add(p);
+				st.insert("var_" + pa.Identifier(), p);
+			}
+		}
+
+		ScopeNodeGraph node = new ScopeNodeGraph(ctx.methodName.getText(), st, ctx.getStart().getLine());
+		CurrParents.peek().getChildren().add(node);
+		CurrParents.push(node);
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMethodDeclaration(MiniJavaParser.MethodDeclarationContext ctx) { }
+	@Override public void exitMethodDeclaration(MiniJavaParser.MethodDeclarationContext ctx) {
+		CurrParents.pop();
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -455,37 +489,93 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfBlock(MiniJavaParser.IfBlockContext ctx) { }
+	@Override public void enterIfBlock(MiniJavaParser.IfBlockContext ctx) {
+		SymbolTable st = new SymbolTable();
+
+		MiniJavaParser.StatementContext Statement = ctx.statement();
+		MiniJavaParser.LocalDeclarationContext loc;
+		for(int i = 0; Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i) != null; i++){
+			loc = Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i);
+			if(loc.type().javaType() != null){
+			}
+			st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
+					loc.type().javaType() == null ? loc.type().Identifier().getText() : loc.type().javaType().getText(),
+					loc.type().LSB() != null, loc.type().Identifier() != null, false));
+		}
+
+		ScopeNodeGraph node = new ScopeNodeGraph("if", st, ctx.getStart().getLine());
+		CurrParents.peek().getChildren().add(node);
+		CurrParents.push(node);
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfBlock(MiniJavaParser.IfBlockContext ctx) { }
+	@Override public void exitIfBlock(MiniJavaParser.IfBlockContext ctx) {
+		CurrParents.pop();
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElseBlock(MiniJavaParser.ElseBlockContext ctx) { }
+	@Override public void enterElseBlock(MiniJavaParser.ElseBlockContext ctx) {
+		SymbolTable st = new SymbolTable();
+
+		MiniJavaParser.StatementContext Statement = ctx.statement();
+		MiniJavaParser.LocalDeclarationContext loc;
+		for(int i = 0; Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i) != null; i++){
+			loc = Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i);
+			if(loc.type().javaType() != null){
+			}
+			st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
+					loc.type().javaType() == null ? loc.type().Identifier().getText() : loc.type().javaType().getText(),
+					loc.type().LSB() != null, loc.type().Identifier() != null, false));
+		}
+
+		ScopeNodeGraph node = new ScopeNodeGraph("else", st, ctx.getStart().getLine());
+		CurrParents.peek().getChildren().add(node);
+		CurrParents.push(node);
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElseBlock(MiniJavaParser.ElseBlockContext ctx) { }
+	@Override public void exitElseBlock(MiniJavaParser.ElseBlockContext ctx) {
+		CurrParents.pop();
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhileBlock(MiniJavaParser.WhileBlockContext ctx) { }
+	@Override public void enterWhileBlock(MiniJavaParser.WhileBlockContext ctx) {
+		SymbolTable st = new SymbolTable();
+
+		MiniJavaParser.StatementContext Statement = ctx.statement();
+		MiniJavaParser.LocalDeclarationContext loc;
+		for(int i = 0; Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i) != null; i++){
+			loc = Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i);
+
+			st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
+					loc.type().javaType() == null ? loc.type().Identifier().getText() : loc.type().javaType().getText(),
+					loc.type().LSB() != null, loc.type().Identifier() != null, false));
+		}
+
+		ScopeNodeGraph node = new ScopeNodeGraph("while", st, ctx.getStart().getLine());
+		CurrParents.peek().getChildren().add(node);
+		CurrParents.push(node);
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhileBlock(MiniJavaParser.WhileBlockContext ctx) { }
+	@Override public void exitWhileBlock(MiniJavaParser.WhileBlockContext ctx) {
+		CurrParents.pop();
+	}
 	/**
 	 * {@inheritDoc}
 	 *
