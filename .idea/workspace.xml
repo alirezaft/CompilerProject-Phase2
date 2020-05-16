@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd08f8a8-d228-4fea-9f99-f125d864672c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -13,30 +14,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="83" column="34" selection-start-line="83" selection-start-column="34" selection-end-line="83" selection-end-column="34" />
+            <state relative-caret-position="87">
+              <caret line="171" column="57" selection-start-line="171" selection-start-column="57" selection-end-line="171" selection-end-column="57" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3463#3464#0" expanded="true" />
                 <element signature="e#3486#3487#0" expanded="true" />
-                <element signature="e#8847#8848#0" expanded="true" />
-                <element signature="e#15439#15440#0" expanded="true" />
-                <element signature="e#23665#23666#0" expanded="true" />
-                <element signature="e#25003#25004#0" expanded="true" />
-                <element signature="e#26347#26348#0" expanded="true" />
+                <element signature="e#8863#8864#0" expanded="true" />
+                <element signature="e#15455#15456#0" expanded="true" />
+                <element signature="e#23681#23682#0" expanded="true" />
+                <element signature="e#25019#25020#0" expanded="true" />
+                <element signature="e#26363#26364#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="41" column="50" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
+            <state relative-caret-position="348">
+              <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -135,7 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>type().javaType()</find>
       <find>,</find>
       <find>statemen</find>
       <find>Prog</find>
@@ -165,6 +165,7 @@
       <find>MethodD</find>
       <find>mainMe</find>
       <find>sayHi</find>
+      <find>Method</find>
     </findStrings>
     <replaceStrings>
       <replace>Method</replace>
@@ -207,8 +208,8 @@
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/ScopeNodeGraph.java" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/Main.java" />
         <option value="$PROJECT_DIR$/Samples/input1.mj" />
-        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java" />
+        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java" />
       </list>
     </option>
   </component>
@@ -263,7 +264,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589669975986" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589670315739" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Libraries" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -328,12 +329,12 @@
       <workItem from="1589452174373" duration="25432000" />
       <workItem from="1589531036532" duration="19555000" />
       <workItem from="1589566505191" duration="53000" />
-      <workItem from="1589640595604" duration="22361000" />
+      <workItem from="1589640595604" duration="22608000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154354000" />
+    <option name="totallyTimeSpent" value="154601000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
@@ -588,13 +589,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="41" column="50" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -628,18 +622,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="83" column="34" selection-start-line="83" selection-start-column="34" selection-end-line="83" selection-end-column="34" />
+        <state relative-caret-position="87">
+          <caret line="171" column="57" selection-start-line="171" selection-start-column="57" selection-end-line="171" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3463#3464#0" expanded="true" />
             <element signature="e#3486#3487#0" expanded="true" />
-            <element signature="e#8847#8848#0" expanded="true" />
-            <element signature="e#15439#15440#0" expanded="true" />
-            <element signature="e#23665#23666#0" expanded="true" />
-            <element signature="e#25003#25004#0" expanded="true" />
-            <element signature="e#26347#26348#0" expanded="true" />
+            <element signature="e#8863#8864#0" expanded="true" />
+            <element signature="e#15455#15456#0" expanded="true" />
+            <element signature="e#23681#23682#0" expanded="true" />
+            <element signature="e#25019#25020#0" expanded="true" />
+            <element signature="e#26363#26364#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
         </state>
       </provider>
     </entry>

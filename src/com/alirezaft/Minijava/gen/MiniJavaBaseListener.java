@@ -169,9 +169,10 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 		MiniJavaParser.MethodDeclarationContext Method;
 		for(int i = 0; ctx.methodDeclaration(i) != null; i++){
 			Method = ctx.methodDeclaration(i);
-			ArrayList<ParameterDeclaration> params = new ArrayList<>();
+			ArrayList<ParameterDeclaration> params = null;
 			MiniJavaParser.ParameterListContext plist = Method.parameterList();
 			if(plist != null){
+				params = new ArrayList<>();
 				for(int j = 0; plist.parameter(j) != null; j++){
 					MiniJavaParser.ParameterContext pa = plist.parameter(j);
 					ParameterDeclaration p = new ParameterDeclaration(pa.type().getText(), pa.Identifier().getText(), pa.type().LSB() != null,

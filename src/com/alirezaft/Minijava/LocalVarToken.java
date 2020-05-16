@@ -28,7 +28,7 @@ public class LocalVarToken extends Token {
         }
         if(isClass){
             sb.append("[classType = " + Type);
-            sb.append(", isDefined" + isDefined + "]");
+            sb.append(", isDefined = " + isDefined + "]");
         }else{
             sb.append(Type);
         }

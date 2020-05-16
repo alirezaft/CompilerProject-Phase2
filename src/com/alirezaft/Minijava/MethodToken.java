@@ -43,12 +43,15 @@ public class MethodToken extends Token {
         }else{
             sb.append(ReturnType + ") ");
         }
-        sb.append("(accessModifer: " + AccessModifier + ") ");
-        sb.append("(parametersType: ");
-        for(ParameterDeclaration p : ParametersList){
-            sb.append(p.toString());
+        sb.append("(accessModifier: " + AccessModifier + ") ");
+        if(ParametersList != null){
+            sb.append("(parametersType: ");
+            for(ParameterDeclaration p : ParametersList){
+                sb.append(p.toString());
+            }
+            sb.append(")");
         }
-        sb.append(")\n");
+        sb.append("\n");
 
         return sb.toString();
     }
