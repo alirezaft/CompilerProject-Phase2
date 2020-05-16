@@ -69,20 +69,70 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterMainClass(MiniJavaParser.MainClassContext ctx) {
+		SymbolTable st = new SymbolTable();
 
+		ArrayList<ParameterDeclaration> p = new ArrayList<>();
+		if(ctx.mainMethod().type().javaType() == null){
+			p.add(new ParameterDeclaration(ctx.mainMethod().type().Identifier().getText(), ctx.mainMethod().Identifier().getText(),
+					ctx.mainMethod().type().LSB() != null,
+					ctx.mainMethod().type().Identifier() != null,
+					ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + ctx.mainMethod().type().Identifier().getText()) != null,
+					0));
+		}else{
+			p.add(new ParameterDeclaration(ctx.mainMethod().type().javaType().getText(), ctx.mainMethod().Identifier().getText(),
+					ctx.mainMethod().type().LSB() != null,
+					false, false, 0));
+		}
+
+		st.insert("method_main", new MethodToken("main", "main", "public", "void",p
+				, true, true, true));
+
+		ScopeNodeGraph node = new ScopeNodeGraph(ctx.className.getText(), st, ctx.getStart().getLine());
+		CurrParents.peek().getChildren().add(node);
+		CurrParents.push(node);
 	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMainClass(MiniJavaParser.MainClassContext ctx) { }
+	@Override public void exitMainClass(MiniJavaParser.MainClassContext ctx) {
+		CurrParents.pop();
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMainMethod(MiniJavaParser.MainMethodContext ctx) { }
+	@Override public void enterMainMethod(MiniJavaParser.MainMethodContext ctx) {
+		SymbolTable st = new SymbolTable();
+
+		MiniJavaParser.StatementContext Statement;
+
+		for(int i = 0; ctx.statement(i) != null; i++){
+			Statement = ctx.statement(i);
+			if(Statement instanceof MiniJavaParser.LocalVarDeclarationContext){
+				MiniJavaParser.LocalVarDeclarationContext l = (MiniJavaParser.LocalVarDeclarationContext) Statement;
+				LocalVarToken var = new LocalVarToken(l.localDeclaration().verName.getText(), l.localDeclaration().type().getText(),
+						l.localDeclaration().type().LSB() != null, l.localDeclaration().type().javaType() == null,
+						true);
+				st.insert("var_" + l.localDeclaration().verName.getText(), var);
+			}
+		}
+
+		ArrayList<ParameterToken> params = new ArrayList<>();
+
+		if(ctx.type().Identifier() != null){
+			st.insert("var_" + ctx.Identifier().getText(), new ParameterToken(ctx.type().Identifier().getText(), "main", ctx.type().LSB() != null,
+					ctx.type().Identifier() != null,
+					ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + ctx.Identifier().getText()) != null, 0));
+		}
+
+		ScopeNodeGraph node = new ScopeNodeGraph("mainMethod", st, ctx.getStart().getLine());
+		CurrParents.peek().getChildren().add(node);
+		CurrParents.push(node);
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
