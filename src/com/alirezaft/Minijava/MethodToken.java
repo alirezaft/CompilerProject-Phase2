@@ -8,11 +8,12 @@ public class MethodToken extends Token {
     private String ReturnType;
     private boolean isArray;
     private boolean isClass;
+    private boolean isDefined;
     private ArrayList<ParameterDeclaration> ParametersList;
 
 
     public MethodToken(String Identifier, String name, String accessModifier, String returnType, ArrayList<ParameterDeclaration> parameters,
-                       boolean Array, boolean Class){
+                       boolean Array, boolean Class, boolean Defined){
         super("method", Identifier);
         Name = name;
         if(accessModifier.equals("private")){
@@ -22,6 +23,9 @@ public class MethodToken extends Token {
         }
         ReturnType = returnType;
         ParametersList = parameters;
+        isArray = Array;
+        isClass = Class;
+        isDefined = Defined;
     }
 
     @Override
@@ -35,7 +39,7 @@ public class MethodToken extends Token {
         }
         if(isClass){
             sb.append("[classType = " + ReturnType);
-            sb.append(", isDefined = true]) ");
+            sb.append(", isDefined = " + isDefined + "]) ");
         }else{
             sb.append(ReturnType + ") ");
         }

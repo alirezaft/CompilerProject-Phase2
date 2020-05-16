@@ -73,4 +73,8 @@ public class ScopeNodeGraph {
     public static ScopeNodeGraph getRoot(){
         return Root;
     }
+
+    public SymbolTable getSymbolTable(){
+        return Table;
+    }
 }

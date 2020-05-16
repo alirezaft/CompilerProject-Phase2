@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         CharStream Stream = null;
         try {
-            Stream = CharStreams.fromFileName("Samples\\input2.mj");
+            Stream = CharStreams.fromFileName("Samples\\input1.mj");
         } catch (IOException e) {
             e.printStackTrace();
         }
