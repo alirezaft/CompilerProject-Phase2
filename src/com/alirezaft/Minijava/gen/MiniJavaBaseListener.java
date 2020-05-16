@@ -393,13 +393,46 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNestedStatement(MiniJavaParser.NestedStatementContext ctx) { }
+	@Override public void enterNestedStatement(MiniJavaParser.NestedStatementContext ctx) {
+		if(!(ctx.getParent() instanceof MiniJavaParser.MethodBodyContext ||
+				ctx.getParent() instanceof MiniJavaParser.MainMethodContext)){
+			System.out.println("IGNORE");
+			return;
+		}
+
+		System.out.println("YES");
+
+		SymbolTable st = new SymbolTable();
+
+		MiniJavaParser.StatementContext Statement;
+		for(int j = 0; ctx.statement(j) != null; j++){
+			Statement = ctx.statement(j);
+			MiniJavaParser.LocalDeclarationContext loc;
+			for(int i = 0; Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i) != null; i++){
+				loc = Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i);
+
+				st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
+						loc.type().javaType() == null ? loc.type().Identifier().getText() : loc.type().javaType().getText(),
+						loc.type().LSB() != null, loc.type().Identifier() != null, false));
+			}
+		}
+
+		ScopeNodeGraph node = new ScopeNodeGraph("nested", st, ctx.getStart().getLine());
+		CurrParents.peek().getChildren().add(node);
+		CurrParents.push(node);
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNestedStatement(MiniJavaParser.NestedStatementContext ctx) { }
+	@Override public void exitNestedStatement(MiniJavaParser.NestedStatementContext ctx) {
+		if((ctx.getParent() instanceof MiniJavaParser.MethodBodyContext ||
+				ctx.getParent() instanceof MiniJavaParser.MainMethodContext)){
+			CurrParents.pop();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *

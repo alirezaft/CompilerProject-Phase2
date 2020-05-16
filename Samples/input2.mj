@@ -53,8 +53,8 @@ class CC
 
 	public int desugarme()
 	{
-		int x; int y; int z;
-		int i; int j;
+		{int x; int y; int z;
+		int i; int j;}
 
 		x = x*y+1+z+10;
 
