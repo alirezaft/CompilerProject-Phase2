@@ -5,11 +5,8 @@ import java.util.ArrayList;
 public class MethodToken extends Token {
     private String Name;
     private String AccessModifier;
-    private String ReturnType;
-    private boolean isArray;
-    private boolean isClass;
-    private boolean isDefined;
     private ArrayList<ParameterDeclaration> ParametersList;
+    private Type returnType;
 
 
     public MethodToken(String Identifier, String name, String accessModifier, String returnType, ArrayList<ParameterDeclaration> parameters,
@@ -21,11 +18,19 @@ public class MethodToken extends Token {
         }else{
             AccessModifier = "ACCESS_MODIFIER_PUBLIC";
         }
-        ReturnType = returnType;
         ParametersList = parameters;
-        isArray = Array;
-        isClass = Class;
-        isDefined = Defined;
+    }
+
+    public MethodToken(String Identifier, String name, String accessModifier, Type returnType, ArrayList<ParameterDeclaration> params){
+        super("method", Identifier);
+        this.returnType = returnType;
+        Name = name;
+        if(accessModifier.equals("private")){
+            AccessModifier = "ACCESS_MODIFIER_PRIVATE";
+        }else{
+            AccessModifier = "ACCESS_MODIFIER_PUBLIC";
+        }
+        ParametersList = params;
     }
 
     @Override
@@ -34,15 +39,10 @@ public class MethodToken extends Token {
         sb.append("Value = Method: ");
         sb.append("(name: " + Name + ") ");
         sb.append("(returnType: ");
-        if(isArray){
-            sb.append("array of");
+        if(returnType == null){
+            System.out.println("AAAAAHHH! " + Name);
         }
-        if(isClass){
-            sb.append("[classType = " + ReturnType);
-            sb.append(", isDefined = " + isDefined + "]) ");
-        }else{
-            sb.append(ReturnType + ") ");
-        }
+        sb.append(returnType.toString() + ") ");
         sb.append("(accessModifier: " + AccessModifier + ") ");
         if(ParametersList != null){
             sb.append("(parametersType: ");

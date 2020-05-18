@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd08f8a8-d228-4fea-9f99-f125d864672c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/ClassType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/ClassType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/FieldToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/FieldToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/LocalVarToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/LocalVarToken.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterDeclaration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterDeclaration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/Type.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -17,101 +25,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="171" column="57" selection-start-line="171" selection-start-column="57" selection-end-line="171" selection-end-column="57" />
+            <state relative-caret-position="382">
+              <caret line="771" column="9" selection-start-line="771" selection-start-column="9" selection-end-line="771" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3463#3464#0" expanded="true" />
-                <element signature="e#3486#3487#0" expanded="true" />
-                <element signature="e#8863#8864#0" expanded="true" />
-                <element signature="e#15455#15456#0" expanded="true" />
-                <element signature="e#23681#23682#0" expanded="true" />
-                <element signature="e#25019#25020#0" expanded="true" />
-                <element signature="e#26363#26364#0" expanded="true" />
+                <element signature="e#8938#8939#0" expanded="true" />
+                <element signature="e#15766#15767#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/MainClassToken.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterDeclaration.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="31" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/FieldToken.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-252">
-              <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/SymbolTable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="23" column="31" lean-forward="true" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ScopeNodeGraph.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="77" column="21" selection-start-line="77" selection-start-column="21" selection-end-line="77" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2001#2002#0" expanded="true" />
-                <element signature="e#2029#2030#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="16" column="62" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Samples/input1.mj">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1105">
-              <caret line="65" column="22" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -119,8 +39,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grammar/MiniJava.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="9" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="9" />
+            <state relative-caret-position="95">
+              <caret line="83" column="7" lean-forward="true" selection-start-line="83" selection-start-column="7" selection-end-line="83" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="319">
+              <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterToken.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="226">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterDeclaration.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="22" column="39" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Samples/input1.mj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="29" column="12" lean-forward="true" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -136,29 +92,19 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>,</find>
-      <find>statemen</find>
-      <find>Prog</find>
-      <find>Main</find>
-      <find>prog</find>
-      <find>localL</find>
       <find>print</find>
-      <find>nested</find>
       <find>desu</find>
       <find>Nested</find>
       <find>While</find>
       <find>whil</find>
-      <find>while</find>
       <find>C</find>
       <find>isD</find>
       <find>ClassD</find>
-      <find>isDefined</find>
       <find>accessModifier</find>
       <find>Method.accessModifier() == null || Method.accessModifier().getText().equals(&quot;public&quot;) ?&quot;public&quot; : &quot;private&quot;</find>
       <find>Rest</find>
       <find>type</find>
       <find>type()</find>
-      <find>intmethod</find>
       <find>println</find>
       <find>main</find>
       <find>MainClass</find>
@@ -166,6 +112,16 @@
       <find>mainMe</find>
       <find>sayHi</find>
       <find>Method</find>
+      <find>isDefined</find>
+      <find>isDefinedtrue</find>
+      <find>intmethod</find>
+      <find>terminal</find>
+      <find>MulExpression</find>
+      <find>if</find>
+      <find>ifE</find>
+      <find>nested</find>
+      <find>while</find>
+      <find>ifB</find>
     </findStrings>
     <replaceStrings>
       <replace>Method</replace>
@@ -190,26 +146,26 @@
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaListener.java" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaVisitor.java" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/InterfaceToken.java" />
-        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/Token.java" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/SymbolTable.java" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/InterfaceToken.java" />
-        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/FieldToken.java" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterDeclartion.java" />
-        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterDeclaration.java" />
-        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterToken.java" />
-        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/Type.java" />
-        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/ClassType.java" />
         <option value="$PROJECT_DIR$/Samples/input3.mj" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/MainClassToken.java" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/ClassToken.java" />
-        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaParser.java" />
-        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/LocalVarToken.java" />
         <option value="$PROJECT_DIR$/Samples/input2.mj" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/ScopeNodeGraph.java" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/Main.java" />
-        <option value="$PROJECT_DIR$/Samples/input1.mj" />
-        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java" />
+        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/Type.java" />
+        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/ClassType.java" />
+        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/Token.java" />
+        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/LocalVarToken.java" />
+        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/FieldToken.java" />
+        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterToken.java" />
+        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterDeclaration.java" />
         <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java" />
+        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaParser.java" />
+        <option value="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java" />
+        <option value="$PROJECT_DIR$/Samples/input1.mj" />
       </list>
     </option>
   </component>
@@ -217,7 +173,7 @@
     <option name="x" value="320" />
     <option name="y" value="-10" />
     <option name="width" value="1570" />
-    <option name="height" value="1103" />
+    <option name="height" value="1104" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -225,6 +181,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -257,14 +214,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589670315739" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589826063295" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Libraries" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -329,18 +285,19 @@
       <workItem from="1589452174373" duration="25432000" />
       <workItem from="1589531036532" duration="19555000" />
       <workItem from="1589566505191" duration="53000" />
-      <workItem from="1589640595604" duration="22608000" />
+      <workItem from="1589640595604" duration="22757000" />
+      <workItem from="1589796069232" duration="18461000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154601000" />
+    <option name="totallyTimeSpent" value="173211000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.295302" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29932886" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -474,75 +431,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/InterfaceToken.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/Token.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/InterfaceToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/Type.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Samples/input3.mj">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ClassType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/LocalVarToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ClassToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11696">
-          <caret line="751" column="24" selection-start-line="751" selection-start-column="24" selection-end-line="751" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#23410#23411#0" expanded="true" />
-            <element signature="e#23461#23462#0" expanded="true" />
-            <element signature="e#23627#23628#0" expanded="true" />
-            <element signature="e#23664#23665#0" expanded="true" />
-            <element signature="e#33702#33703#0" expanded="true" />
-            <element signature="e#33757#33758#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -563,42 +455,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/FieldToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-252">
-          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ScopeNodeGraph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="77" column="21" selection-start-line="77" selection-start-column="21" selection-end-line="77" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2001#2002#0" expanded="true" />
-            <element signature="e#2029#2030#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterDeclaration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="31" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="16" column="62" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/MainClassToken.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -606,41 +462,135 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grammar/MiniJava.g4">
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ScopeNodeGraph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="9" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Samples/input1.mj">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="65" column="22" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="171" column="57" selection-start-line="171" selection-start-column="57" selection-end-line="171" selection-end-column="57" />
+        <state relative-caret-position="1088">
+          <caret line="77" column="21" selection-start-line="77" selection-start-column="21" selection-end-line="77" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3463#3464#0" expanded="true" />
-            <element signature="e#3486#3487#0" expanded="true" />
-            <element signature="e#8863#8864#0" expanded="true" />
-            <element signature="e#15455#15456#0" expanded="true" />
-            <element signature="e#23681#23682#0" expanded="true" />
-            <element signature="e#25019#25020#0" expanded="true" />
-            <element signature="e#26363#26364#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/Type.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/LocalVarToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/InterfaceToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/FieldToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ClassType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ClassToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="16" column="62" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterDeclaration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="22" column="39" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
+        <state relative-caret-position="319">
+          <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grammar/MiniJava.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="83" column="7" lean-forward="true" selection-start-line="83" selection-start-column="7" selection-end-line="83" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="1854" column="24" selection-start-line="1854" selection-start-column="24" selection-end-line="1854" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#23410#23411#0" expanded="true" />
+            <element signature="e#23461#23462#0" expanded="true" />
+            <element signature="e#23627#23628#0" expanded="true" />
+            <element signature="e#23664#23665#0" expanded="true" />
+            <element signature="e#33702#33703#0" expanded="true" />
+            <element signature="e#33757#33758#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="771" column="9" selection-start-line="771" selection-start-column="9" selection-end-line="771" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8938#8939#0" expanded="true" />
+            <element signature="e#15766#15767#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Samples/input1.mj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="29" column="12" lean-forward="true" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
         </state>
       </provider>
     </entry>

@@ -12,6 +12,12 @@ public class ClassType extends Type {
     public String toString(){
         StringBuilder sb = new StringBuilder();
 
+        if(isArray){
+            sb.append("array of ");
+        }
+        sb.append("[classType = " + type + ", ");
+        sb.append("isDefined = " + isDefined + "]");
+
         return sb.toString();
     }
 

@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -72,20 +73,17 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 		SymbolTable st = new SymbolTable();
 
 		ArrayList<ParameterDeclaration> p = new ArrayList<>();
-		if(ctx.mainMethod().type().javaType() == null){
-			p.add(new ParameterDeclaration(ctx.mainMethod().type().Identifier().getText(), ctx.mainMethod().Identifier().getText(),
-					ctx.mainMethod().type().LSB() != null,
-					ctx.mainMethod().type().Identifier() != null,
-					ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + ctx.mainMethod().type().Identifier().getText()) != null,
-					0));
-		}else{
-			p.add(new ParameterDeclaration(ctx.mainMethod().type().javaType().getText(), ctx.mainMethod().Identifier().getText(),
-					ctx.mainMethod().type().LSB() != null,
-					false, false, 0));
-		}
+			Type t;
 
-		st.insert("method_main", new MethodToken("main", "main", "public", "void",p
-				, true, true, true));
+			if(ctx.mainMethod().type().javaType() == null) {
+				t = new ClassType(ctx.mainMethod().type().Identifier().getText(), ctx.mainMethod().type().LSB() != null,
+						ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + ctx.mainMethod().type().Identifier().getText()) != null);
+			}else{
+				t = new Type(ctx.mainMethod().type().LSB() != null, ctx.mainMethod().type().javaType().getText());
+			}
+			p.add(new ParameterDeclaration(ctx.Identifier().getText(), 1, t));
+
+		st.insert("method_main", new MethodToken("mainMethod", "main", "public", t, p));
 
 		ScopeNodeGraph node = new ScopeNodeGraph(ctx.className.getText(), st, ctx.getStart().getLine());
 		CurrParents.peek().getChildren().add(node);
@@ -113,25 +111,35 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			Statement = ctx.statement(i);
 			if(Statement instanceof MiniJavaParser.LocalVarDeclarationContext){
 				MiniJavaParser.LocalVarDeclarationContext l = (MiniJavaParser.LocalVarDeclarationContext) Statement;
-				LocalVarToken var = new LocalVarToken(l.localDeclaration().verName.getText(), l.localDeclaration().type().getText(),
-						l.localDeclaration().type().LSB() != null, l.localDeclaration().type().javaType() == null,
-						true);
+				Type t;
+				if(l.localDeclaration().type().javaType() == null){
+					t = new ClassType(l.localDeclaration().type().Identifier().getText(), l.localDeclaration().type().LSB() != null,
+							ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + l.localDeclaration().Identifier().getText()) != null);
+				}else{
+					t = new Type(l.localDeclaration().type().LSB() != null, l.localDeclaration().type().javaType().getText());
+				}
+
+				LocalVarToken var = new LocalVarToken(l.localDeclaration().verName.getText(), t);
 				st.insert("var_" + l.localDeclaration().verName.getText(), var);
 			}
 		}
 
-		ArrayList<ParameterToken> params = new ArrayList<>();
+		ParameterToken p;
+		Type t;
 
-		if(ctx.type().Identifier() != null){
-			st.insert("var_" + ctx.Identifier().getText(), new ParameterToken(ctx.type().Identifier().getText(), "main", ctx.type().LSB() != null,
-					ctx.type().Identifier() != null,
-					ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + ctx.Identifier().getText()) != null, 0));
+		if(ctx.type().javaType() == null){
+			t = new ClassType(ctx.type().Identifier().getText(), ctx.type().LSB() != null,
+					ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + ctx.Identifier().getText()) != null);
+		}else{
+			t = new Type(ctx.type().LSB() != null, ctx.type().javaType().getText());
 		}
+
+		p = new ParameterToken(ctx.Identifier().getText(), 0, t);
+		st.insert("var_" + ctx.Identifier().getText(), p);
 
 		ScopeNodeGraph node = new ScopeNodeGraph("mainMethod", st, ctx.getStart().getLine());
 		CurrParents.peek().getChildren().add(node);
 		CurrParents.push(node);
-
 	}
 	/**
 	 * {@inheritDoc}
@@ -153,17 +161,21 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			boolean Array, Class;
 			Array = Field.type().LSB() != null;
 			Class = Field.type().javaType() == null;
-			if(Field.type().Identifier() == null){
-				st.insert("var_" + Field.Identifier().getText(), new FieldToken(Field.Identifier().getText(), Field.Identifier().getText(),
-						(Field.accessModifier() == null || Field.accessModifier().getText().equals("public")) ?
-						"public" : "private", Class, Field.type().javaType().getText(), false, Array));
+
+			Type t;
+			FieldToken f;
+
+			if(Field.type().javaType() == null){
+				t = new ClassType(Field.type().Identifier().getText(), Field.type().LSB() != null,
+						ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + Field.type().Identifier().getText()) != null);
 			}else{
-				st.insert("var_" + Field.Identifier().getText(), new FieldToken(Field.Identifier().getText(), Field.Identifier().getText(),
-						(Field.accessModifier() == null || Field.accessModifier().getText().equals("public")) ?
-						"public" : "private", Class, Field.type().Identifier().getText(),
-						ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + Field.type().Identifier().getText()) != null, Array));
+				t = new Type(Field.type().LSB() != null, Field.type().javaType().getText());
 			}
 
+			f= new FieldToken(Field.Identifier().getText(), Field.Identifier().getText(),
+					Field.accessModifier() == null || Field.accessModifier().getText().equals("public") ? "public" : "private", t);
+
+			st.insert("var_" + Field.Identifier().getText(), f);
 		}
 
 		MiniJavaParser.MethodDeclarationContext Method;
@@ -175,8 +187,17 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 				params = new ArrayList<>();
 				for(int j = 0; plist.parameter(j) != null; j++){
 					MiniJavaParser.ParameterContext pa = plist.parameter(j);
-					ParameterDeclaration p = new ParameterDeclaration(pa.type().getText(), pa.Identifier().getText(), pa.type().LSB() != null,
-							pa.type().javaType() == null, false, j + 1);
+
+					Type t;
+
+					if(pa.type().javaType() == null){
+						t = new ClassType(pa.type().Identifier().getText(), pa.type().LSB() != null,
+								ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + pa.type().Identifier().getText()) != null);
+					}else{
+						t = new Type(pa.type().LSB() != null, pa.type().javaType().getText());
+					}
+
+					ParameterDeclaration p = new ParameterDeclaration(pa.Identifier().getText(), j + 1, t);
 					params.add(p);
 				}
 			}
@@ -184,27 +205,21 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 				st.insert("method_" + Method.Identifier().getText(), new MethodToken(Method.Identifier().getText(),
 						Method.Identifier().getText(), Method.accessModifier() == null || Method.accessModifier().getText().equals("private") ?
 						"private" : "public",
-						"void", params, false, false, false));
+						new Type(false, "void"), params));
 
 			}else{
-				if(Method.returnType().type().Identifier() != null){
-					st.insert("method_" + Method.Identifier().getText(), new MethodToken(Method.Identifier().getText(),
-							Method.Identifier().getText(), Method.accessModifier() == null || Method.accessModifier().getText().equals("private") ?
-							"private" : "public",
-							Method.returnType().type().Identifier().getText(),
-							params,
-							Method.returnType().type().LSB() != null,
-							true,
-							ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + Method.returnType().type().Identifier().getText()) != null));
+				Type t;
+				if(Method.returnType().type().javaType() == null){
+					t = new ClassType(Method.returnType().type().Identifier().getText(), Method.returnType().type().LSB() != null,
+							ScopeNodeGraph.getRoot().getSymbolTable().lookup("class+" + Method.returnType().type().Identifier().getText()) != null);
 				}else{
-					st.insert("method_" + Method.Identifier().getText(), new MethodToken(Method.Identifier().getText(),
-							Method.Identifier().getText(), Method.accessModifier() == null || Method.accessModifier().getText().equals("private") ?
-							"private" : "public",
-							Method.returnType().type().javaType().getText(),
-							params,
-							Method.returnType().type().LSB() != null,
-							false, false));
+					t = new Type(Method.returnType().type().LSB() != null, Method.returnType().type().javaType().getText());
 				}
+
+				MethodToken m = new MethodToken(Method.methodName.getText(), Method.methodName.getText(),
+						Method.accessModifier() == null || Method.accessModifier().getText().equals("public") ? "public" : "private",
+						t, params);
+				st.insert("method_" + Method.Identifier().getText(), m);
 			}
 		}
 		ScopeNodeGraph node = new ScopeNodeGraph(ctx.Identifier(0).getText(), st, ctx.getStart().getLine());
@@ -233,16 +248,19 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			boolean Array, Class;
 			Array = Field.type().LSB() != null;
 			Class = Field.type().javaType() == null;
-			if(Field.type().Identifier() != null){
-				st.insert("var_" + Field.Identifier(), new FieldToken(Field.fieldName.getText(), Field.fieldName.getText(),
-						Field.accessModifier() == null || Field.accessModifier().getText().equals("public") ?
-						"public" : "private", Class, Field.type().Identifier().getText()
-						, ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + Field.type().Identifier().getText()) != null , Array));
+			Type t;
+
+			if(Field.type().javaType() == null){
+				t = new ClassType(Field.type().Identifier().getText(), Field.type().LSB() != null,
+						ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + Field.type().Identifier().getText()) != null);
 			}else{
-				st.insert("var_" + Field.Identifier(), new FieldToken(Field.fieldName.getText(), Field.fieldName.getText(),
-						Field.accessModifier() == null || Field.accessModifier().getText().equals("public") ?
-						"public" : "private", Class, Field.type().javaType().getText(),false, Array));
+				t = new Type(Field.type().LSB() != null, Field.type().javaType().getText());
 			}
+
+			FieldToken f = new FieldToken(Field.Identifier().getText(), Field.Identifier().getText(),
+					Field.accessModifier() == null || Field.accessModifier().getText().equals("public") ? "public" : "private",
+					t);
+			st.insert("var_" + Field.Identifier().getText(), f);
 		}
 
 		MiniJavaParser.InterfaceMethodDeclarationContext intmethod;
@@ -253,10 +271,16 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			if(plist != null){
 				for(int j = 0; plist.parameter(j) != null; j++){
 					MiniJavaParser.ParameterContext pa = plist.parameter(j);
-					ParameterDeclaration p = new ParameterDeclaration(pa.type().Identifier() != null ? pa.type().Identifier().getText() :
-							pa.type().javaType().getText()
-							, pa.Identifier().getText(), pa.type().LSB() != null,
-							pa.type().javaType() == null, false, j + 1);
+					ParameterDeclaration p;
+					Type t;
+
+					if(pa.type().javaType() == null){
+						t = new ClassType(pa.type().Identifier().getText(), pa.type().LSB() != null,
+								ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + pa.Identifier().getText()) != null);
+					}else{
+						t = new Type(pa.type().LSB() != null, pa.type().javaType().getText());
+					}
+					p = new ParameterDeclaration(pa.Identifier().getText(), j + 1, t);
 					params.add(p);
 				}
 			}
@@ -267,24 +291,16 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 						"void",
 						params, false, false, false));
 			}else{
-				if(intmethod.returnType().type().Identifier() != null){
-					st.insert("method_" + intmethod.Identifier().getText(), new MethodToken(intmethod.Identifier().getText(),
-							intmethod.Identifier().getText(), intmethod.accessModifier() == null || intmethod.accessModifier().getText().equals("private") ?
-							"private" : "public",
-							intmethod.returnType().type().Identifier().getText(),
-							params,
-							intmethod.returnType().type().LSB() != null,
-							true,
-							ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + intmethod.returnType().type().Identifier().getText()) != null));
+				Type t;
+				if(intmethod.returnType().type().javaType() == null){
+					t = new ClassType(intmethod.returnType().type().Identifier().getText(), intmethod.returnType().type().LSB() != null,
+							ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + intmethod.returnType().type().Identifier().getText()) != null);
 				}else{
-					st.insert("method_" + intmethod.Identifier().getText(), new MethodToken(intmethod.Identifier().getText(),
-							intmethod.Identifier().getText(), intmethod.accessModifier() == null || intmethod.accessModifier().getText().equals("private") ?
-							"private" : "public",
-							intmethod.returnType().type().javaType().getText(),
-							params,
-							intmethod.returnType().type().LSB() != null,
-							false, false));
+					t = new Type(intmethod.returnType().type().LSB() != null, intmethod.returnType().type().javaType().getText());
 				}
+				MethodToken m = new MethodToken(intmethod.methodName.getText(), intmethod.methodName.getText(),
+						intmethod.accessModifier() == null || intmethod.accessModifier().getText().equals("public") ? "public" : "private",
+						t, params);
 			}
 		}
 
@@ -348,9 +364,15 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			Statement = ctx.methodBody().statement(i);
 			if(Statement instanceof MiniJavaParser.LocalVarDeclarationContext){
 				MiniJavaParser.LocalVarDeclarationContext l = (MiniJavaParser.LocalVarDeclarationContext) Statement;
-				LocalVarToken var = new LocalVarToken(l.localDeclaration().verName.getText(), l.localDeclaration().type().getText(),
-						l.localDeclaration().type().LSB() != null, l.localDeclaration().type().javaType() == null,
-						true);
+				Type t;
+				if(l.localDeclaration().type().javaType() == null){
+					t = new ClassType(l.localDeclaration().type().Identifier().getText(), l.localDeclaration().type().LSB() != null,
+							ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + l.localDeclaration().type().Identifier().getText()) != null);
+				}else{
+					t = new Type(l.localDeclaration().type().LSB() != null, l.localDeclaration().type().javaType().getText());
+				}
+
+				LocalVarToken var = new LocalVarToken(l.localDeclaration().verName.getText(), t);
 				st.insert("var_" + l.localDeclaration().verName.getText(), var);
 			}
 		}
@@ -360,8 +382,16 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 		if(plist != null){
 			for(int j = 0; plist.parameter(j) != null; j++){
 				MiniJavaParser.ParameterContext pa = plist.parameter(j);
-				ParameterToken p = new ParameterToken(pa.type().getText(), pa.Identifier().getText(), pa.type().LSB() != null,
-						pa.type().javaType() == null, false, j + 1);
+				Type t;
+
+				if(pa.type().javaType() == null){
+					t = new ClassType(pa.type().Identifier().getText(), pa.type().LSB() != null,
+							ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + pa.type().Identifier().getText()) != null);
+				}else{
+					t = new Type(pa.type().LSB() != null, pa.type().javaType().getText());
+				}
+
+				ParameterToken p = new ParameterToken(pa.Identifier().getText(), j + 1, t);
 				params.add(p);
 				st.insert("var_" + pa.Identifier(), p);
 			}
@@ -482,10 +512,10 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterNestedStatement(MiniJavaParser.NestedStatementContext ctx) {
-		if(!(ctx.getParent() instanceof MiniJavaParser.MethodBodyContext ||
-				ctx.getParent() instanceof MiniJavaParser.MainMethodContext)){
-			return;
-		}
+//		if(!(ctx.getParent() instanceof MiniJavaParser.MethodBodyContext ||
+//				ctx.getParent() instanceof MiniJavaParser.MainMethodContext)){
+//			return;
+//		}
 
 		SymbolTable st = new SymbolTable();
 
@@ -495,17 +525,17 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			MiniJavaParser.LocalDeclarationContext loc;
 			for(int i = 0; Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i) != null; i++){
 				loc = Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i);
+				Type t;
 
 				if(loc.type().javaType() == null){
-					st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
-							loc.type().Identifier().getText(),
-							loc.type().LSB() != null, true,
-							ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + loc.type().Identifier().getText()) != null));
+					t = new ClassType(loc.type().Identifier().getText(), loc.type().LSB() != null,
+							ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + loc.type().Identifier().getText()) != null);
 				}else{
-					st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
-							loc.type().javaType().getText(),
-							loc.type().LSB() != null, false, false));
+					t = new Type(loc.type().LSB() != null, loc.type().javaType().getText());
 				}
+
+				LocalVarToken l = new LocalVarToken(loc.verName.getText(), t);
+				st.insert("var_" + loc.Identifier().getText(), l);
 
 			}
 		}
@@ -618,20 +648,25 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	@Override public void enterIfBlock(MiniJavaParser.IfBlockContext ctx) {
 		SymbolTable st = new SymbolTable();
 
+		if(ctx.statement() instanceof MiniJavaParser.NestedStatementContext){
+			return;
+		}
+
 		MiniJavaParser.StatementContext Statement = ctx.statement();
 		MiniJavaParser.LocalDeclarationContext loc;
 		for(int i = 0; Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i) != null; i++){
 			loc = Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i);
+			Type t;
+
 			if(loc.type().javaType() == null){
-				st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
-						loc.type().Identifier().getText(),
-						loc.type().LSB() != null, true,
-						ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + loc.type().Identifier().getText()) != null));
+				t = new ClassType(loc.type().Identifier().getText(), loc.type().LSB() != null,
+						ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + loc.type().Identifier().getText()) != null);
 			}else{
-				st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
-						loc.type().javaType().getText(),
-						loc.type().LSB() != null, false, false));
+				t = new Type(loc.type().LSB() != null, loc.type().javaType().getText());
 			}
+
+			LocalVarToken l = new LocalVarToken(loc.verName.getText(), t);
+			st.insert("var_" + loc.Identifier().getText(), l);
 		}
 
 		ScopeNodeGraph node = new ScopeNodeGraph("if", st, ctx.getStart().getLine());
@@ -644,6 +679,9 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIfBlock(MiniJavaParser.IfBlockContext ctx) {
+		if(ctx.statement() instanceof MiniJavaParser.NestedStatementContext){
+			return;
+		}
 		CurrParents.pop();
 	}
 	/**
@@ -654,20 +692,25 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	@Override public void enterElseBlock(MiniJavaParser.ElseBlockContext ctx) {
 		SymbolTable st = new SymbolTable();
 
+		if(ctx.statement() instanceof MiniJavaParser.NestedStatementContext){
+			return;
+		}
+
 		MiniJavaParser.StatementContext Statement = ctx.statement();
 		MiniJavaParser.LocalDeclarationContext loc;
 		for(int i = 0; Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i) != null; i++){
 			loc = Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i);
+			Type t;
+
 			if(loc.type().javaType() == null){
-				st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
-						loc.type().Identifier().getText(),
-						loc.type().LSB() != null, true,
-						ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + loc.type().Identifier().getText()) != null));
+				t = new ClassType(loc.type().Identifier().getText(), loc.type().LSB() != null,
+						ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + loc.type().Identifier().getText()) != null);
 			}else{
-				st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
-						loc.type().javaType().getText(),
-						loc.type().LSB() != null, false, false));
+				t = new Type(loc.type().LSB() != null, loc.type().javaType().getText());
 			}
+
+			LocalVarToken l = new LocalVarToken(loc.verName.getText(), t);
+			st.insert("var_" + loc.Identifier().getText(), l);
 		}
 
 		ScopeNodeGraph node = new ScopeNodeGraph("else", st, ctx.getStart().getLine());
@@ -680,6 +723,9 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitElseBlock(MiniJavaParser.ElseBlockContext ctx) {
+		if(ctx.statement() instanceof MiniJavaParser.NestedStatementContext){
+			return;
+		}
 		CurrParents.pop();
 	}
 	/**
@@ -690,21 +736,25 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	@Override public void enterWhileBlock(MiniJavaParser.WhileBlockContext ctx) {
 		SymbolTable st = new SymbolTable();
 
+		if(ctx.statement() instanceof MiniJavaParser.NestedStatementContext){
+			return;
+		}
+
 		MiniJavaParser.StatementContext Statement = ctx.statement();
 		MiniJavaParser.LocalDeclarationContext loc;
 		for(int i = 0; Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i) != null; i++){
 			loc = Statement.getChild(MiniJavaParser.LocalDeclarationContext.class, i);
+			Type t;
 
 			if(loc.type().javaType() == null){
-				st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
-						loc.type().Identifier().getText(),
-						loc.type().LSB() != null, true,
-						ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + loc.type().Identifier().getText()) != null));
+				t = new ClassType(loc.type().Identifier().getText(), loc.type().LSB() != null,
+						ScopeNodeGraph.getRoot().getSymbolTable().lookup("class_" + loc.type().Identifier().getText()) != null);
 			}else{
-				st.insert("var_" + loc.verName.getText(), new LocalVarToken(loc.verName.getText(),
-						loc.type().javaType().getText(),
-						loc.type().LSB() != null, false, false));
+				t = new Type(loc.type().LSB() != null, loc.type().javaType().getText());
 			}
+
+			LocalVarToken l = new LocalVarToken(loc.verName.getText(), t);
+			st.insert("var_" + loc.Identifier().getText(), l);
 		}
 
 		ScopeNodeGraph node = new ScopeNodeGraph("while", st, ctx.getStart().getLine());
@@ -717,6 +767,10 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitWhileBlock(MiniJavaParser.WhileBlockContext ctx) {
+		if(ctx.statement() instanceof MiniJavaParser.NestedStatementContext){
+			return;
+		}
+
 		CurrParents.pop();
 	}
 	/**
