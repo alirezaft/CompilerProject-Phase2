@@ -6,6 +6,9 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -32,7 +35,7 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 
 			if(Class.getText().contains("implements")){
 				for(int j = Class.parentName == null ? 1 : 2; Class.Identifier(j) != null; j++){
-					Interfaces.add(Class.Identifier(i).getText());
+					Interfaces.add(Class.Identifier(j).getText());
 				}
 			}
 			String[] s = new String[1];
@@ -61,8 +64,18 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitProgram(MiniJavaParser.ProgramContext ctx) {
-		ScopeNodeGraph.printSymbolTables();
+		String outputstr = ScopeNodeGraph.printSymbolTables();
 		CurrParents.pop();
+		File output = new File("Samples\\output4.txt");
+		FileWriter wr;
+		try {
+			 wr = new FileWriter(output);
+			 wr.write(outputstr);
+			 wr.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 	/**
 	 * {@inheritDoc}

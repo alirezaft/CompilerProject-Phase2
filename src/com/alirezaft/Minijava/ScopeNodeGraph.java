@@ -51,19 +51,21 @@ public class ScopeNodeGraph {
         }
     }
 
-    private void traverseScopeGraph(){
+    private String traverseScopeGraph(){
         int ChildCount = Children.size();
         int TravesedNum = 0;
-        System.out.println(this.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.toString());
         if(!Children.isEmpty()){
             for(ScopeNodeGraph n : Children){
-                n.traverseScopeGraph();
+                sb.append(n.traverseScopeGraph());
             }
         }
+        return sb.toString();
     }
 
-    public static void printSymbolTables(){
-        Root.traverseScopeGraph();
+    public static String printSymbolTables(){
+        return Root.traverseScopeGraph();
     }
 
     public static void setChild(ScopeNodeGraph parent, ScopeNodeGraph child){

@@ -19,7 +19,7 @@ public class LocalVarToken extends Token {
     public String toString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Value: " + Value + " | ");
+        sb.append("Value: " + Value + ": ");
         sb.append("(name: " + Name + ") ") ;
         sb.append("(type: ");
         sb.append(type.toString());

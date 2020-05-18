@@ -29,10 +29,12 @@ public class ClassToken extends Token {
                 sb.append(" | ");
             }
             sb.append("implements : ");
-            for (String inter : Interfaces){
-                sb.append(inter + ", ");
+            for (int i = 0; i < Interfaces.length; i++){
+                sb.append(Interfaces[i]);
+                if(i !=  Interfaces.length - 1){
+                    sb.append(", ");
+                }
             }
-            sb.setLength(sb.length() - 1);
             sb.append(")\n");
         }else if(Parent != null){
             sb.append(")\n");

@@ -31,7 +31,6 @@ public class FieldToken extends Token {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Key = " + Identifier + " | ");
         sb.append("Value = " + Value + ": ");
         sb.append("(name: " + Name + ") ");
         sb.append("(type: ");
