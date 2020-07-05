@@ -43,7 +43,8 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			//Checking for double class declaration
 
 			if(st.lookup("class_" + Class.className.getText()) != null){
-				System.out.println("in line " + Class.getStart().getLine() + " : " + Class.getStart().getCharPositionInLine() + ", class" + Class.className.getText() + " has been defined already");
+				System.out.println("in line " + Class.getStart().getLine() + " : " + Class.getStart().getCharPositionInLine()
+						+ ", class" + Class.className.getText() + " has been defined already");
 			}
 
 			//End of checking
@@ -199,6 +200,17 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			f= new FieldToken(Field.Identifier().getText(), Field.Identifier().getText(),
 					Field.accessModifier() == null || Field.accessModifier().getText().equals("public") ? "public" : "private", t);
 
+			//Checking for double field declaration
+
+			if(st.lookup("var_" + Field.fieldName.getText()) != null &&
+					st.lookup("var_" + Field.fieldName.getText()).equals(t)){
+				System.out.println("Error103 : in line " + Field.getStart().getLine() + " : " + Field.getStart().getCharPositionInLine() +
+						" , var " + Field.fieldName.getText() + " has been defined already");
+			}
+
+			//End of checking
+
+
 			st.insert("var_" + Field.Identifier().getText(), f);
 		}
 
@@ -225,6 +237,9 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 					params.add(p);
 				}
 			}
+
+//			if(st.lookup("method_" + Method.methodName.getText()) != null && )
+
 			if(Method.returnType().getText().equals("void")){
 				st.insert("method_" + Method.Identifier().getText(), new MethodToken(Method.Identifier().getText(),
 						Method.Identifier().getText(), Method.accessModifier() == null || Method.accessModifier().getText().equals("private") ?

@@ -9,9 +9,9 @@ class QuickSort{
 // methods to initialize, print and sort the array
 // using Quicksort
 class QS{
-
-    int[] number ;
     int size ;
+    int[] number ;
+    char size ;
 
     // Invoke the Initialization, Sort and Printing
     // Methods
@@ -33,6 +33,7 @@ class QS{
 	int i ;
 	int j ;
 	int nt;
+	int v;
 	int t ;
 	boolean cont01;
 	boolean cont02;

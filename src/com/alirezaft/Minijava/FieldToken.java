@@ -40,4 +40,8 @@ public class FieldToken extends Token {
 
         return sb.toString();
     }
+
+    public Type getType(){
+        return type;
+    }
 }
