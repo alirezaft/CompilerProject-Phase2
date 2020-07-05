@@ -39,6 +39,15 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 				}
 			}
 			String[] s = new String[1];
+
+			//Checking for double class declaration
+
+			if(st.lookup("class_" + Class.className.getText()) != null){
+				System.out.println("in line " + Class.getStart().getLine() + " : " + Class.getStart().getCharPositionInLine() + ", class" + Class.className.getText() + " has been defined already");
+			}
+
+			//End of checking
+
 			st.insert("class_" + Class.className.getText(), new ClassToken(Class.className.getText(),
 					Class.parentName == null ? "Object" : Class.parentName.getText(),
 					Interfaces.size() != 0 ? Interfaces.toArray(s) : null));
@@ -64,17 +73,17 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitProgram(MiniJavaParser.ProgramContext ctx) {
-		String outputstr = ScopeNodeGraph.printSymbolTables();
-		CurrParents.pop();
-		File output = new File("Samples\\output4.txt");
-		FileWriter wr;
-		try {
-			 wr = new FileWriter(output);
-			 wr.write(outputstr);
-			 wr.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		String outputstr = ScopeNodeGraph.printSymbolTables();
+//		CurrParents.pop();
+//		File output = new File("Outputs\\output3.txt");
+//		FileWriter wr;
+//		try {
+//			 wr = new FileWriter(output);
+//			 wr.write(outputstr);
+//			 wr.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 	/**
@@ -167,6 +176,8 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 */
 	@Override public void enterClassDeclaration(MiniJavaParser.ClassDeclarationContext ctx) {
 		SymbolTable st = new SymbolTable();
+
+
 
 		MiniJavaParser.FieldDeclarationContext Field;
 		for(int i = 0; ctx.fieldDeclaration(i) != null; i++){

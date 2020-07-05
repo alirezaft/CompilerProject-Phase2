@@ -11,6 +11,10 @@ class Classes {
 	}
 }
 
+class Classes{
+
+}
+
 class Rest implements Nothing{
 
 }

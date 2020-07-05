@@ -1,8 +1,7 @@
 package com.alirezaft.Minijava;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Stack;
+
 
 public class ScopeNodeGraph {
     private SymbolTable Table;
