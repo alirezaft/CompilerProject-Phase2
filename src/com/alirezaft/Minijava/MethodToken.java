@@ -55,4 +55,12 @@ public class MethodToken extends Token {
 
         return sb.toString();
     }
+
+    public Type getType(){
+        return returnType;
+    }
+
+    public ArrayList<ParameterDeclaration> getParametersList(){
+        return ParametersList;
+    }
 }

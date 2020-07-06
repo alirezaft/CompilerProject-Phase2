@@ -31,7 +31,7 @@ public class Type {
 
         Type t = (Type)obj;
 
-        if(t.isArray == this.isArray){
+        if(t.isArray != this.isArray){
             return false;
         }
 

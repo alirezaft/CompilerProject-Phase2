@@ -26,4 +26,8 @@ public class ParameterDeclaration {
 
         return sb.toString();
     }
+
+    public Type getType(){
+        return type;
+    }
 }

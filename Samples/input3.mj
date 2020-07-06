@@ -26,6 +26,12 @@ class QS{
 	return 0 ;
     }
 
+    public int Start(int sz) {
+        return 0;
+    }
+
+    public void a(){}
+    public void a(){}
 
     // Sort array of integers using Quicksort method
     public int Sort(int left, int right){

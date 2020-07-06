@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Stack;
 
 /**
@@ -203,7 +204,7 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			//Checking for double field declaration
 
 			if(st.lookup("var_" + Field.fieldName.getText()) != null &&
-					st.lookup("var_" + Field.fieldName.getText()).equals(t)){
+					((FieldToken)st.lookup("var_" + Field.fieldName.getText())).getType().equals(t)){
 				System.out.println("Error103 : in line " + Field.getStart().getLine() + " : " + Field.getStart().getCharPositionInLine() +
 						" , var " + Field.fieldName.getText() + " has been defined already");
 			}
@@ -241,6 +242,20 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 //			if(st.lookup("method_" + Method.methodName.getText()) != null && )
 
 			if(Method.returnType().getText().equals("void")){
+				//Checking double method declaration
+				if(st.lookup("method_" + Method.methodName.getText()) != null &&
+						((MethodToken)st.lookup("method_" + Method.methodName.getText())).getType().equals(new Type(false, "void"))){
+					ArrayList<ParameterDeclaration> par = ((MethodToken)st.lookup("method_" + Method.methodName.getText())).getParametersList();
+					if(!(par == null ^ params == null)){
+						System.out.println("Error102 : in line" + Method.getStart().getLine() + ":" +
+								Method.getStart().getCharPositionInLine() + ", method" + Method.methodName.getText() + "has been defined already\n");
+					}
+					if((par != null && params != null) && par.containsAll(params)){
+						System.out.println("Error102 : in line " + Method.getStart().getLine() + ":" +
+								Method.getStart().getCharPositionInLine() + ", method " + Method.methodName.getText() + " has been defined already\n");
+					}
+				}
+				//End of checking
 				st.insert("method_" + Method.Identifier().getText(), new MethodToken(Method.Identifier().getText(),
 						Method.Identifier().getText(), Method.accessModifier() == null || Method.accessModifier().getText().equals("private") ?
 						"private" : "public",
@@ -258,6 +273,22 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 				MethodToken m = new MethodToken(Method.methodName.getText(), Method.methodName.getText(),
 						Method.accessModifier() == null || Method.accessModifier().getText().equals("public") ? "public" : "private",
 						t, params);
+
+				//Checking double method declaration
+				if(st.lookup("method_" + Method.methodName.getText()) != null &&
+						((MethodToken)st.lookup("method_" + Method.methodName.getText())).getType().equals(t)){
+					ArrayList<ParameterDeclaration> par = ((MethodToken)st.lookup("method_" + Method.methodName.getText())).getParametersList();
+					if(!(par == null ^ params == null)){
+						System.out.println("Error102 : in line " + Method.getStart().getLine() + ":" +
+								Method.getStart().getCharPositionInLine() + ", method " + Method.methodName.getText() + " has been defined already\n");
+					}
+					if((par != null && params != null) && par.containsAll(params)){
+						System.out.println("Error102 : in line" + Method.getStart().getLine() + ":" +
+								Method.getStart().getCharPositionInLine() + ", method " + Method.methodName.getText() + " has been defined already\n");
+					}
+				}
+				//End of checking
+
 				st.insert("method_" + Method.Identifier().getText(), m);
 			}
 		}
