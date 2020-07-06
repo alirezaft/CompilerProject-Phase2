@@ -412,7 +412,17 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFieldDeclaration(MiniJavaParser.FieldDeclarationContext ctx) { }
+	@Override public void enterFieldDeclaration(MiniJavaParser.FieldDeclarationContext ctx) {
+		//Checking for undefined class usage
+		if(ctx.type().Identifier() != null){
+			SymbolTable rt = ScopeNodeGraph.getRoot().getSymbolTable();
+			if(rt.lookup("class_" + ctx.type().Identifier().getText()) == null){
+				System.out.println("Error105 : in line " + ctx.getStart().getLine() + ":" +
+						ctx.getStart().getCharPositionInLine() + " , cannot find  class [className]");
+			}
+		}
+		//End of checking
+	}
 	/**
 	 * {@inheritDoc}
 	 *
