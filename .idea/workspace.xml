@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd08f8a8-d228-4fea-9f99-f125d864672c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Samples/input3.mj" beforeDir="false" afterPath="$PROJECT_DIR$/Samples/input3.mj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/MethodToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterDeclaration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/ParameterDeclaration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/Type.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,10 +16,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="281" column="20" selection-start-line="281" selection-start-column="20" selection-end-line="281" selection-end-column="20" />
+            <state relative-caret-position="382">
+              <caret line="171" column="9" lean-forward="true" selection-start-line="168" selection-start-column="34" selection-end-line="171" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#20502#20503#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -120,7 +116,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>println</find>
       <find>main</find>
       <find>MainClass</find>
       <find>MethodD</find>
@@ -147,9 +142,10 @@
       <find>Value = (.*`):</find>
       <find>classD</find>
       <find>exitProgram</find>
-      <find>ClassD</find>
       <find>QS</find>
       <find>double</find>
+      <find>ClassD</find>
+      <find>var_</find>
     </findStrings>
     <replaceStrings>
       <replace>Method</replace>
@@ -249,7 +245,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589844890724" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1594024356732" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Libraries" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -319,12 +315,12 @@
       <workItem from="1589839910129" duration="4969000" />
       <workItem from="1590198325867" duration="153000" />
       <workItem from="1593951701056" duration="10413000" />
-      <workItem from="1594011261813" duration="8154000" />
+      <workItem from="1594011261813" duration="11060000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="198164000" />
+    <option name="totallyTimeSpent" value="201070000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
@@ -344,7 +340,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3292683" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Tool Output" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
@@ -400,16 +396,6 @@
     <option name="version" value="1" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java</url>
-          <line>277</line>
-          <properties />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="((MethodToken)st.lookup(&quot;method_&quot; + Method.methodName.getText())).getType()" language="JAVA" />
@@ -658,10 +644,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/alirezaft/Minijava/gen/MiniJavaBaseListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="281" column="20" selection-start-line="281" selection-start-column="20" selection-end-line="281" selection-end-column="20" />
+        <state relative-caret-position="382">
+          <caret line="171" column="9" lean-forward="true" selection-start-line="168" selection-start-column="34" selection-end-line="171" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#20502#20503#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -144,6 +144,12 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 				}
 
 				LocalVarToken var = new LocalVarToken(l.localDeclaration().verName.getText(), t);
+				//Checking for double var declaration
+				if(st.lookup("var_" + l.localDeclaration().verName.getText()) != null){
+					System.out.println("Error103 : in line " + l.localDeclaration().getStart().getLine() + " : " + l.localDeclaration().getStart().getCharPositionInLine() +
+							" , var " + l.localDeclaration().verName.getText() + " has been defined already");
+				}
+				//End of checking
 				st.insert("var_" + l.localDeclaration().verName.getText(), var);
 			}
 		}
@@ -203,8 +209,7 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 
 			//Checking for double field declaration
 
-			if(st.lookup("var_" + Field.fieldName.getText()) != null &&
-					((FieldToken)st.lookup("var_" + Field.fieldName.getText())).getType().equals(t)){
+			if(st.lookup("var_" + Field.fieldName.getText()) != null){
 				System.out.println("Error103 : in line " + Field.getStart().getLine() + " : " + Field.getStart().getCharPositionInLine() +
 						" , var " + Field.fieldName.getText() + " has been defined already");
 			}
@@ -330,6 +335,12 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			FieldToken f = new FieldToken(Field.Identifier().getText(), Field.Identifier().getText(),
 					Field.accessModifier() == null || Field.accessModifier().getText().equals("public") ? "public" : "private",
 					t);
+			//Checking for double interface field declaration
+			if(st.lookup("var_" + Field.Identifier().getText()) != null){
+				System.out.println("Error103 : in line " + Field.getStart().getLine() + " : " + Field.getStart().getCharPositionInLine() +
+						" , var " + Field.fieldName.getText() + " has been defined already");
+			}
+			//End of checking
 			st.insert("var_" + Field.Identifier().getText(), f);
 		}
 
@@ -443,6 +454,13 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 				}
 
 				LocalVarToken var = new LocalVarToken(l.localDeclaration().verName.getText(), t);
+
+				//Checking for double var declaration
+					if(st.lookup("var_ " + l.localDeclaration().verName.getText()) != null){
+						System.out.println("Error103 : in line " + l.localDeclaration().getStart().getLine() + " : " + l.localDeclaration().getStart().getCharPositionInLine() +
+								" , var " + l.localDeclaration().verName.getText() + " has been defined already");
+					}
+				//End of checking
 				st.insert("var_" + l.localDeclaration().verName.getText(), var);
 			}
 		}
@@ -463,6 +481,13 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 
 				ParameterToken p = new ParameterToken(pa.Identifier().getText(), j + 1, t);
 				params.add(p);
+				//Checkin for double parameter declaration
+					if(st.lookup("var_" + pa.Identifier().getText()) != null){
+						System.out.println("Error103 : in line " + pa.getStart().getLine() + " : " + pa.getStart().getCharPositionInLine() +
+								" , var " + pa.Identifier().getText() + " has been defined already");
+
+					}
+				//End of checking
 				st.insert("var_" + pa.Identifier(), p);
 			}
 		}
@@ -605,6 +630,12 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 				}
 
 				LocalVarToken l = new LocalVarToken(loc.verName.getText(), t);
+
+				if(st.lookup("var_" + loc.verName.getText()) != null){
+					System.out.println("Error103 : in line " + loc.getStart().getLine() + " : " + loc.getStart().getCharPositionInLine() +
+							" , var " + loc.verName.getText() + " has been defined already");
+				}
+
 				st.insert("var_" + loc.Identifier().getText(), l);
 
 			}
@@ -736,6 +767,12 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			}
 
 			LocalVarToken l = new LocalVarToken(loc.verName.getText(), t);
+			//Checking for double var declaration
+			if(st.lookup("var_" + loc.verName.getText()) != null){
+				System.out.println("Error103 : in line " + loc.getStart().getLine() + " : " + loc.getStart().getCharPositionInLine() +
+						" , var " + loc.verName.getText() + " has been defined already");
+			}
+			//End of checking
 			st.insert("var_" + loc.Identifier().getText(), l);
 		}
 
@@ -780,6 +817,12 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			}
 
 			LocalVarToken l = new LocalVarToken(loc.verName.getText(), t);
+			//Checking for double var declaration
+			if(st.lookup("var_" + loc.verName.getText()) != null){
+				System.out.println("Error103 : in line " + loc.getStart().getLine() + " : " + loc.getStart().getCharPositionInLine() +
+						" , var " + loc.verName.getText() + " has been defined already");
+			}
+			//End of checking
 			st.insert("var_" + loc.Identifier().getText(), l);
 		}
 
@@ -824,6 +867,12 @@ public class MiniJavaBaseListener implements MiniJavaListener {
 			}
 
 			LocalVarToken l = new LocalVarToken(loc.verName.getText(), t);
+			//Checking for double var declaration
+			if(st.lookup("var_" + loc.verName.getText()) != null){
+				System.out.println("Error103 : in line " + loc.getStart().getLine() + " : " + loc.getStart().getCharPositionInLine() +
+						" , var " + loc.verName.getText() + " has been defined already");
+			}
+			//End of checking
 			st.insert("var_" + loc.Identifier().getText(), l);
 		}
 
